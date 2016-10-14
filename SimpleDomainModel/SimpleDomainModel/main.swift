@@ -20,18 +20,35 @@ open class TestMe {
   }
 }
 
+
 ////////////////////////////////////
 // Money
 //
 public struct Money {
   public var amount : Int
   public var currency : String
-  
+  private let convertToUsdMap : [String: Double] = ["GBP": 0.5, "CAN": 1.25, "EUR": 1.5, "USD": 1]
+	
+	
+	init(amount: Int, currency: String){
+		self.amount = amount
+		self.currency = currency
+	}
   public func convert(_ to: String) -> Money {
+    let usdAmount = Double(self.amount) / (convertToUsdMap[self.currency])!
+		
+		let convertedAmount = usdAmount * (convertToUsdMap[to])!
+		
+		return Money(amount: Int(convertedAmount), currency: to)
+		
   }
-  
+	
+	//adds the current money to the passed-in money
   public func add(_ to: Money) -> Money {
+		
   }
+	
+	//subtracts the current money from the passed-in Money
   public func subtract(_ from: Money) -> Money {
   }
 }
