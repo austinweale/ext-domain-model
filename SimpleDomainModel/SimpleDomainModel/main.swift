@@ -34,6 +34,7 @@ public struct Money {
 		self.amount = amount
 		self.currency = currency
 	}
+	
   public func convert(_ to: String) -> Money {
     let usdAmount = Double(self.amount) / (convertToUsdMap[self.currency])!
 		
@@ -45,11 +46,21 @@ public struct Money {
 	
 	//adds the current money to the passed-in money
   public func add(_ to: Money) -> Money {
+		//the passed-in Money in terms of this currency
+		let inThisCurrency = to.convert(self.currency)
+		let newAmount = inThisCurrency.amount + self.amount
 		
+		
+		return Money(amount: newAmount, currency: self.currency)
   }
 	
 	//subtracts the current money from the passed-in Money
   public func subtract(_ from: Money) -> Money {
+		let inThisCurrency = from.convert(self.currency)
+		let newAmount = inThisCurrency.amount - self.amount
+		
+		
+		return Money(amount: newAmount, currency: self.currency)
   }
 }
 
