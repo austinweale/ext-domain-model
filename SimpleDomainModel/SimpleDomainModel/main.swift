@@ -74,15 +74,37 @@ open class Job {
   public enum JobType {
     case Hourly(Double)
     case Salary(Int)
+		
+		func get() -> Any{
+			switch self {
+			case .Hourly(let num):
+				return num
+			case .Salary(let num):
+				return num
+			}
+		}
   }
-  
+	
   public init(title : String, type : JobType) {
+		self.title = title
+		self.type = type
   }
-  
+	
   open func calculateIncome(_ hours: Int) -> Int {
+		if case let JobType.Salary(Int) = self.type {
+			return self.type.get() as! Int
+		}else{
+			return Int(Double(hours) * (self.type.get() as! Double))
+		}
   }
   
   open func raise(_ amt : Double) {
+		if case let JobType.Salary(Int) = self.type {
+			let newAmount: Int = self.type.get()  * Int(amt)
+			self.type = JobType.Salary(newAmount)
+		}else{
+			self.type = JobType.Hourly(Int(Double(self.type.get()) * amt))
+		}
   }
 }
 
