@@ -83,6 +83,13 @@ open class Job {
 				return num
 			}
 		}
+		
+		var description : String {
+			switch self {
+				case .Hourly(let num): return "Hourly";
+				case .Salary(let num): return "Salary";
+			}
+		}
   }
 	
   public init(title : String, type : JobType) {
@@ -91,19 +98,20 @@ open class Job {
   }
 	
   open func calculateIncome(_ hours: Int) -> Int {
-		if case let JobType.Salary(Int) = self.type {
+		if self.type.description == "Salary" {
 			return self.type.get() as! Int
 		}else{
 			return Int(Double(hours) * (self.type.get() as! Double))
 		}
   }
-  
+	
   open func raise(_ amt : Double) {
-		if case let JobType.Salary(Int) = self.type {
-			let newAmount: Int = self.type.get()  * Int(amt)
-			self.type = JobType.Salary(newAmount)
+		if self.type.description == "Salary"  {
+			let newAmount: Double = self.type.get() as! Double * amt
+			let integerAmount = Int(newAmount)
+			self.type = JobType.Salary(integerAmount)
 		}else{
-			self.type = JobType.Hourly(Int(Double(self.type.get()) * amt))
+			self.type = JobType.Hourly((self.type.get() as! Double) * amt)
 		}
   }
 }
