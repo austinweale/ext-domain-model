@@ -126,15 +126,21 @@ open class Person {
 
   fileprivate var _job : Job? = nil
   open var job : Job? {
-    get { }
+    get { return self.job }
     set(value) {
+			if(self.age >= 16){
+				self.job = value
+			}
     }
   }
   
   fileprivate var _spouse : Person? = nil
   open var spouse : Person? {
-    get { }
+    get { return self.spouse }
     set(value) {
+			if self.age >= 21 {
+				self.spouse = value
+			}
     }
   }
   
@@ -145,6 +151,7 @@ open class Person {
   }
   
   open func toString() -> String {
+		return "\(self.firstName) \(self.lastName), \(self.age), \(self.job)"
   }
 }
 
