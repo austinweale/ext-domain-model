@@ -47,11 +47,11 @@ public struct Money {
 	//adds the current money to the passed-in money
   public func add(_ to: Money) -> Money {
 		//the passed-in Money in terms of this currency
-		let inThisCurrency = to.convert(self.currency)
-		let newAmount = inThisCurrency.amount + self.amount
+		let inThisCurrency = self.convert(to.currency)
+		let newAmount = inThisCurrency.amount + to.amount
 		
 		
-		return Money(amount: newAmount, currency: self.currency)
+		return Money(amount: newAmount, currency: to.currency)
   }
 	
 	//subtracts the current money from the passed-in Money
