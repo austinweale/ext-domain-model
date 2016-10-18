@@ -149,7 +149,7 @@ open class Person {
     self.lastName = lastName
     self.age = age
   }
-  
+	
   open func toString() -> String {
 		return "\(self.firstName) \(self.lastName), \(self.age), \(self.job)"
   }
@@ -167,21 +167,26 @@ open class Family {
 			spouse2.spouse = spouse1
 		}
   }
-  
+	
   open func haveChild(_ child: Person) -> Bool {
-		var over21 = false
+		var over21: Bool = false
 		for i in 0...self.members.count {
 			if self.members[i].age >= 21{
 				over21 = true
 			}
 		}
 		if(over21){
-			self.members.append(Person: child)
+			self.members.append(child)
 		}
 		return over21
   }
 	
   open func householdIncome() -> Int {
+		var totalIncome = 0
+		for i in 0...self.members.count {
+			totalIncome += self.members[i].job!.calculateIncome()
+		}
+		return totalIncome
   }
 }
 
