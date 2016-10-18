@@ -138,7 +138,7 @@ open class Person {
   open var spouse : Person? {
     get { return self.spouse }
     set(value) {
-			if self.age >= 21 {
+			if self.age >= 18 {
 				self.spouse = value
 			}
     }
@@ -162,11 +162,25 @@ open class Family {
   fileprivate var members : [Person] = []
   
   public init(spouse1: Person, spouse2: Person) {
+		if spouse1.spouse == nil && spouse2.spouse == nil {
+			spouse1.spouse = spouse2
+			spouse2.spouse = spouse1
+		}
   }
   
   open func haveChild(_ child: Person) -> Bool {
+		var over21 = false
+		for i in 0...self.members.count {
+			if self.members[i].age >= 21{
+				over21 = true
+			}
+		}
+		if(over21){
+			self.members.append(Person: child)
+		}
+		return over21
   }
-  
+	
   open func householdIncome() -> Int {
   }
 }
