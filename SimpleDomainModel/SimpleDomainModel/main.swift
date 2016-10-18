@@ -184,7 +184,7 @@ open class Family {
   open func householdIncome() -> Int {
 		var totalIncome = 0
 		for i in 0...self.members.count {
-			totalIncome += self.members[i].job!.calculateIncome()
+			totalIncome += self.members[i].job!.calculateIncome(1)
 		}
 		return totalIncome
   }
