@@ -26,11 +26,16 @@ protocol CustomStringConvertible {
 	var description: String { get set }
 }
 
+protocol Mathematics {
+	func add(_ : Money) -> Money
+	func subtract(_ : Money) -> Money
+}
+
 
 ////////////////////////////////////
 // Money
 //
-public struct Money: CustomStringConvertible {
+public struct Money: CustomStringConvertible, Mathematics {
   public var amount : Int
   public var currency : String
   private let convertToUsdMap : [String: Double] = ["GBP": 0.5, "CAN": 1.25, "EUR": 1.5, "USD": 1]

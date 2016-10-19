@@ -38,6 +38,20 @@ class ConvertibleTests: XCTestCase {
 		XCTAssert(family.description == "Brad Pitt, 45, Angelina Jolie, 45")
 		
 	}
+	
+	func testAddMoney(){
+		let money1 = Money(amount: 20, currency: "EUR")
+		let money2 = Money(amount: 10, currency: "EUR")
+		let money3 = money1.add(money2)
+		XCTAssert(money3.description == "EUR30")
+	}
+	
+	func testSubtractMoney(){
+		let money1 = Money(amount: 20, currency: "EUR")
+		let money2 = Money(amount: 10, currency: "EUR")
+		let money3 = money2.subtract(money1)
+		XCTAssert(money3.description == "EUR10")
+	}
 
 
 }
