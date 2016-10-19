@@ -1,3 +1,5 @@
+//Austin Weale
+//10/18/16
 //
 //  main.swift
 //  SimpleDomainModel
@@ -166,7 +168,7 @@ open class Person {
 	
 	//[Person: firstName:Ted lastName:Neward age:45 job:nil spouse:nil]
   open func toString() -> String {
-		return "Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(self.job) spouse: \(self.spouse)"
+		return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(self.job) spouse:\(self.spouse)]"
   }
 }
 
@@ -180,14 +182,18 @@ open class Family {
 		if spouse1.spouse == nil && spouse2.spouse == nil {
 			spouse1.spouse = spouse2
 			spouse2.spouse = spouse1
+			self.members.append(spouse1)
+			self.members.append(spouse2)
 		}
   }
 	
   open func haveChild(_ child: Person) -> Bool {
 		var over21: Bool = false
-		for i in 0...self.members.count {
-			if self.members[i].age >= 21{
-				over21 = true
+		if(self.members.count > 0){
+			for i in 0...self.members.count - 1 {
+				if self.members[i].age >= 21{
+					over21 = true
+				}
 			}
 		}
 		if(over21){
@@ -199,10 +205,15 @@ open class Family {
   open func householdIncome() -> Int {
 		var totalIncome = 0
 		if(self.members.count > 0){
+			
 			for i in 0...self.members.count - 1 {
-				totalIncome += self.members[i].job!.calculateIncome(1)
+				if(members[i].job != nil){
+					
+					totalIncome += self.members[i].job!.calculateIncome(2000)
+				}
 			}
 		}
+		print(totalIncome)
 		return totalIncome
   }
 }
