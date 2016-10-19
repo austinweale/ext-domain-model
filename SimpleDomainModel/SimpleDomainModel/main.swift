@@ -22,19 +22,25 @@ open class TestMe {
   }
 }
 
+protocol CustomStringConvertible {
+	var description: String { get set }
+}
+
 
 ////////////////////////////////////
 // Money
 //
-public struct Money {
+public struct Money: CustomStringConvertible {
   public var amount : Int
   public var currency : String
   private let convertToUsdMap : [String: Double] = ["GBP": 0.5, "CAN": 1.25, "EUR": 1.5, "USD": 1]
+	public var description : String
 	
 	
 	init(amount: Int, currency: String){
 		self.amount = amount
 		self.currency = currency
+		self.description = "\(currency)\(amount)"
 	}
 	
   public func convert(_ to: String) -> Money {
@@ -69,9 +75,10 @@ public struct Money {
 ////////////////////////////////////
 // Job
 //
-open class Job {
+open class Job: CustomStringConvertible {
   fileprivate var title : String
   fileprivate var type : JobType
+	public var description: String
 
   public enum JobType {
     case Hourly(Double)
@@ -98,6 +105,7 @@ open class Job {
   public init(title : String, type : JobType) {
 		self.title = title
 		self.type = type
+		self.description = "\(self.title), \(self.type.description)"
   }
 	
   open func calculateIncome(_ hours: Int) -> Int {
@@ -122,10 +130,11 @@ open class Job {
 ////////////////////////////////////
 // Person
 //
-open class Person {
+open class Person: CustomStringConvertible {
   open var firstName : String = ""
   open var lastName : String = ""
   open var age : Int = 0
+	public var description : String
 
   fileprivate var _job : Job? = nil
   open var job : Job? {
@@ -164,6 +173,7 @@ open class Person {
     self.firstName = firstName
     self.lastName = lastName
     self.age = age
+		self.description = "\(firstName) \(lastName), \(age)"
   }
 	
 	//[Person: firstName:Ted lastName:Neward age:45 job:nil spouse:nil]
