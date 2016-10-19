@@ -89,7 +89,7 @@ open class Job: CustomStringConvertible {
 			case .Hourly(let num):
 				return num
 			case .Salary(let num):
-				var doubleAmount = Double(num)
+				let doubleAmount = Double(num)
 				return doubleAmount
 			}
 		}
@@ -185,8 +185,9 @@ open class Person: CustomStringConvertible {
 ////////////////////////////////////
 // Family
 //
-open class Family {
+open class Family: CustomStringConvertible {
   fileprivate var members : [Person] = []
+	var description: String
   
   public init(spouse1: Person, spouse2: Person) {
 		if spouse1.spouse == nil && spouse2.spouse == nil {
@@ -195,6 +196,7 @@ open class Family {
 			self.members.append(spouse1)
 			self.members.append(spouse2)
 		}
+		self.description = "\(spouse1.description), \(spouse2.description)"
   }
 	
   open func haveChild(_ child: Person) -> Bool {
@@ -208,6 +210,7 @@ open class Family {
 		}
 		if(over21){
 			self.members.append(child)
+			self.description = "\(self.description), \(child.description)"
 		}
 		return over21
   }
